@@ -184,7 +184,7 @@ def GetMonthlyStatistics(DataDF):
     of monthly values for each year."""
 
     # define column names
-    colNames=['site_no','Mean Flow','Coeff Variantion','TQmean','R-B Index']
+    colNames=['site_no','Mean Flow','Coeff Var','TQmean','R-B Index']
    
     # resample for monthly data
     monthly=DataDF.resample('M')
@@ -201,7 +201,7 @@ def GetMonthlyStatistics(DataDF):
     
     sd=monthly['Discharge'].std()
     
-    MoDataDF['Coeff Variantion']=(sd/monthly['Discharge'].mean())*100
+    MoDataDF['Coeff Var']=(sd/monthly['Discharge'].mean())*100
     
     MoDataDF['TQmean']=monthly.apply({'Discharge': lambda x: CalcTqmean(x)})
     
@@ -229,7 +229,7 @@ def GetMonthlyAverages(MoDataDF):
     # MonthlyAverages=MoDataDF.mean(axis=0) ???
     
     # define column names
-    colNames=['site_no','Mean Flow','Coeff Variantion','TQmean','R-B Index']
+    colNames=['site_no','Mean Flow','Coeff Var','TQmean','R-B Index']
     
     # build Dataframe
     
@@ -245,7 +245,7 @@ def GetMonthlyAverages(MoDataDF):
     for (n,m) in index:
         MonthlyAverages.iloc[n,1]=MoDataDF['Mean Flow'][m::12].mean()
     for (n,m) in index:
-        MonthlyAverages.iloc[n,2]=MoDataDF['Coeff Variantion'][m::12].mean()
+        MonthlyAverages.iloc[n,2]=MoDataDF['Coeff Var'][m::12].mean()
     for (n,m) in index:
         MonthlyAverages.iloc[n,3]=MoDataDF['TQmean'][m::12].mean()
     for (n,m) in index:
