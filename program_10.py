@@ -143,7 +143,7 @@ def GetAnnualStatistics(DataDF):
     # build similar table as the given output
     
     # define column names
-    colNames=['site_no','Mean_Flow','Peak_Flow','Median','Coeff_Var','Skew','TQmean','R-B Index','7Q','3xMedian']
+    colNames=['site_no','Mean Flow','Peak Flow','Median','Coeff Var','Skew','TQmean','R-B Index','7Q','3xMedian']
     
     # water year <- OCT 1st to next Sep 30th
     wateryear=DataDF.resample('AS-OCT')
@@ -156,15 +156,15 @@ def GetAnnualStatistics(DataDF):
     # Write Table
     WYDataDF['site_no']=wateryear['site_no'].mean()
     
-    WYDataDF['Mean_Flow']=wateryear['Discharge'].mean()
+    WYDataDF['Mean Flow']=wateryear['Discharge'].mean()
     
-    WYDataDF['Peak_Flow']=wateryear['Discharge'].max()
+    WYDataDF['Peak Flow']=wateryear['Discharge'].max()
     
     WYDataDF['Median']=wateryear['Discharge'].median()
     
     sd=wateryear['Discharge'].std()
     
-    WYDataDF['Coeff_Var']=(sd/wateryear['Discharge'].mean())*100
+    WYDataDF['Coeff Var']=(sd/wateryear['Discharge'].mean())*100
     
     WYDataDF['Skew']=wateryear.apply({'Discharge':lambda x: stats.skew(x)},raw=True)
     
@@ -184,7 +184,7 @@ def GetMonthlyStatistics(DataDF):
     of monthly values for each year."""
 
     # define column names
-    colNames=['site_no','Mean_Flow','Coeff_Variantion','TQmean','R-B Index']
+    colNames=['site_no','Mean Flow','Coeff Variantion','TQmean','R-B Index']
    
     # resample for monthly data
     monthly=DataDF.resample('M')
@@ -197,11 +197,11 @@ def GetMonthlyStatistics(DataDF):
     # Write Table
     MoDataDF['site_no']=monthly['site_no'].mean()
     
-    MoDataDF['Mean_Flow']=monthly['Discharge'].mean()
+    MoDataDF['Mean Flow']=monthly['Discharge'].mean()
     
     sd=monthly['Discharge'].std()
     
-    MoDataDF['Coeff_Variantion']=(sd/monthly['Discharge'].mean())*100
+    MoDataDF['Coeff Variantion']=(sd/monthly['Discharge'].mean())*100
     
     MoDataDF['TQmean']=monthly.apply({'Discharge': lambda x: CalcTqmean(x)})
     
@@ -229,7 +229,7 @@ def GetMonthlyAverages(MoDataDF):
     # MonthlyAverages=MoDataDF.mean(axis=0) ???
     
     # define column names
-    colNames=['site_no','Mean_Flow','Coeff_Variantion','TQmean','R-B Index']
+    colNames=['site_no','Mean Flow','Coeff Variantion','TQmean','R-B Index']
     
     # build Dataframe
     
@@ -243,9 +243,9 @@ def GetMonthlyAverages(MoDataDF):
     index=[(0,3),(1,4),(2,5),(3,6),(4,7),(5,8),(6,9),(7,10),(8,11),(9,0),(10,1),(11,2)]
     
     for (n,m) in index:
-        MonthlyAverages.iloc[n,1]=MoDataDF['Mean_Flow'][m::12].mean()
+        MonthlyAverages.iloc[n,1]=MoDataDF['Mean Flow'][m::12].mean()
     for (n,m) in index:
-        MonthlyAverages.iloc[n,2]=MoDataDF['Coeff_Variantion'][m::12].mean()
+        MonthlyAverages.iloc[n,2]=MoDataDF['Coeff Variantion'][m::12].mean()
     for (n,m) in index:
         MonthlyAverages.iloc[n,3]=MoDataDF['TQmean'][m::12].mean()
     for (n,m) in index:
