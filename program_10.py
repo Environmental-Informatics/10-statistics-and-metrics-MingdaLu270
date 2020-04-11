@@ -113,7 +113,7 @@ def Calc7Q(Qvalues):
     Qvalues=Qvalues.dropna()
    
     # 7 day period, pick the minimum values
-    val7Q=Qvalues.rolling(window=7).mean().min
+    val7Q=Qvalues.rolling(window=7).mean().min()
      
     return ( val7Q )
 
