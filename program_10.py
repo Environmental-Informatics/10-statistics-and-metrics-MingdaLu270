@@ -187,7 +187,7 @@ def GetMonthlyStatistics(DataDF):
     colNames=['site_no','Mean Flow','Coeff Var','TQmean','R-B Index']
    
     # resample for monthly data
-    monthly=DataDF.resample('M')
+    monthly=DataDF.resample('MS')
         
     # build dataframe
     data=monthly.mean()
